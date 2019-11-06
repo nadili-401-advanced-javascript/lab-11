@@ -1,4 +1,4 @@
-# LAB - 11-a 
+# LAB - 11
 AUTH server
 
 ## Express
@@ -6,9 +6,9 @@ AUTH server
 ### Author: Nadya Ilinskaya/Seattle-js-401n14
 
 ### Links and Resources
-* [submission PR](https://github.com/nadili-401-advanced-javascript/lab-11-a/pull/1)
-* [travis](https://travis-ci.com/nadili-401-advanced-javascript/lab-11-a)
-* [heroku](https://nadili-lab-11-a.herokuapp.com/)
+* [submission PR](https://github.com/nadili-401-advanced-javascript/lab-11/pull/1)
+* [travis](https://travis-ci.com/nadili-401-advanced-javascript/lab-11)
+* [heroku](https://nadili-lab-11.herokuapp.com/)
 
 
 ### Modules
