@@ -65,4 +65,6 @@ The users collection should have three unique users. Here is the data for these 
 
 
 #### UML
+
 ![ UML](/assets/lab-11-uml.jpg)
+
