@@ -10,28 +10,28 @@ const supertest = require('supertest');
 
 let mongoServer;
 
-let supergoose = module.exports = {};
+let supertester = (module.exports = {});
 /**
  * @server
  * @returns function that expects an express server
  */
-supergoose.server = (server) => supertest(server);
+supertester.server = server => supertest(server);
 
 /**
  * Typically used in Jest beforeAll hook
  */
-supergoose.startDB = async () => {
-  
+supertester.startDB = async () => {
   mongoServer = new MongoMemoryServer();
-  
+
   const mongoUri = await mongoServer.getConnectionString();
-  
+
   const mongooseOptions = {
-    useNewUrlParser:true,
-    useCreateIndex: true
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
   };
-  
-  await mongoose.connect(mongoUri, mongooseOptions, (err) => {
+
+  await mongoose.connect(mongoUri, mongooseOptions, err => {
     if (err) console.error(err);
   });
 };
@@ -39,13 +39,13 @@ supergoose.startDB = async () => {
 /**
  * Typically used in Jest afterAll hook
  */
-supergoose.stopDB = () => {
+supertester.stopDB = () => {
   mongoose.disconnect();
   mongoServer.stop();
 };
 
 // Just so that it can live in the tests folder
-describe('supergoose', () => {
+describe('supertester', () => {
   it('is super', () => {
     expect(true).toBeTruthy();
   });

@@ -7,7 +7,7 @@
     "start": "node index.js",
     "watch": "nodemon index.js",
     "test-watch": "jest --watchAll",
-    "test": "jest"
+    "test": "jest --verbose --coverage"
   },
   "jest": {
     "testEnvironment": "node"
@@ -28,7 +28,6 @@
     "mongoose-schema-jsonschema": "^1.1.15",
     "morgan": "^1.9.0",
     "require-directory": "^2.1.1",
-    "supertest": "^3.3.0",
-    "swagger-ui-express": "^4.0.2"
+    "supertest": "^3.3.0"
   }
 }
