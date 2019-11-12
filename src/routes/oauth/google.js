@@ -5,7 +5,15 @@ const express = require('express');
 const googleMW = require('../../middleware/oauth/google-mw.js');
 const router = express.Router();
 
-// TODO: Swagger Comment
+/**
+ * @route GET /google
+ *  request /google-oauth route 
+ * @param {object}   req   The request object
+ * @param {object}   res   The response object
+ * @security OAuth
+ * @returns {object} 200 -> googleOAuthURL to send back to Google's API to retreive user info
+ */
+
 router.get('/google', (req, res, next) => {
   let googleOAuthURL = process.env.GOOGLE_AUTH_SERVICE;
   let options = {
@@ -13,35 +21,35 @@ router.get('/google', (req, res, next) => {
     redirect_uri: process.env.HOME_URL + '/google-oauth',
     scope: 'email openid profile',
     prompt: 'consent',
-    response_type: 'code'
+    response_type: 'code',
   };
 
-  // TODO: Comment
+  // adding '?' to googleOAuthURL (for adding query later)
   googleOAuthURL += '?';
 
-  // TODO: Comment
+  // combining url query parametrs
   Object.keys(options).forEach((key, indx) => {
     googleOAuthURL += key + '=' + encodeURIComponent(options[key]);
     googleOAuthURL += '&';
   });
 
-  // TODO: Comment
   res.status(200).json({ url: googleOAuthURL });
 });
 
-// TODO: Swagger Comment
+/**
+ * @route GET /google-oauth
+ * @param {object}   req   The request object
+ * @param {object}   res   The response object
+ * @security OAuth
+ * @returns {object} 200 - The name and email address from the selected Google account
+ */
+
 router.get('/google-oauth', async (req, res, next) => {
   let data = await googleMW(req);
 
-  // TODO: Comment
+  // send name and mail as response 
   res.status(200).json({ name: data.name, email: data.email });
 
-  // TODO: README Question:
-  // Now that we have some data about the user, how would we go about
-  // adding this user to our database?
-  // What data should we save?
-  // What data is missing?
-  // What considerations about storing this data do we need to take?
 });
 
 module.exports = router;

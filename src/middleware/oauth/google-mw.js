@@ -1,11 +1,14 @@
 const superagent = require('superagent');
-
-// TODO: JSDoc Comment
+/**
+ *  sends the authorization code to Google in order to retrieve the user info
+ * @param  {} process.env.GOOGLE_TOKEN_SERVICE
+ * @param  {object} 
+ */
 let getUserData = async request => {
-  // TODO: Comment
+  // saving authorization code to a variable 
   let authCode = request.query.code;
 
-  // TODO: Comment
+  // POST request to Google
   let googleRes = await superagent
     .post(process.env.GOOGLE_TOKEN_SERVICE)
     .type('form')
@@ -14,18 +17,18 @@ let getUserData = async request => {
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
       redirect_uri: `${process.env.HOME_URL}/google-oauth`,
-      grant_type: 'authorization_code'
+      grant_type: 'authorization_code',
     });
 
-  // TODO: Comment
+  // saving access token code to a variable 
   let access_token = googleRes.body.access_token;
 
-  // TODO: Comment
+  // setting tocken into rquest header
   googleRes = await superagent
     .get(process.env.GOOGLE_API)
     .set('Authorization', `Bearer ${access_token}`);
 
-  // TODO: Comment
+  // saving response data into variable
   let userData = googleRes.body;
   return userData;
 };
