@@ -5,7 +5,16 @@ const express = require('express');
 const googleMW = require('../../middleware/oauth/google-mw.js');
 const router = express.Router();
 
-// TODO: Swagger Comment
+/**
+ * @route GET /google
+ * This route authenticates the server to ensure the request is coming from a verified google developer account. We collect the url and options from environment variables, and redirect to our /google-oauth route, which then executes the code from our googleMW module.
+ * @param {object}   req   The request object
+ * @param {object}   res   The response object
+ * @param {Function} next  We don't use it in here, but this is our method for going to the next middleware or error middleware in the request-response chain
+ * @security OAuth
+ * @returns {object} 200 - An authenticated URL to send back to Google's API to retreive user info
+ */
+
 router.get('/google', (req, res, next) => {
   let googleOAuthURL = process.env.GOOGLE_AUTH_SERVICE;
   let options = {
@@ -13,7 +22,7 @@ router.get('/google', (req, res, next) => {
     redirect_uri: process.env.HOME_URL + '/google-oauth',
     scope: 'email openid profile',
     prompt: 'consent',
-    response_type: 'code'
+    response_type: 'code',
   };
 
   // TODO: Comment
